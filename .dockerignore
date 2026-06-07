@@ -1,0 +1,11 @@
+node_modules
+.git
+.env
+.env.*
+!.env.example
+**/node_modules
+frontend/node
+backend/node_modules
+*.log
+uploads
+.sixth

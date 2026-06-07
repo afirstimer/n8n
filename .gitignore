@@ -1,0 +1,17 @@
+# Environment (secrets)
+.env
+.env.local
+.env.*.local
+
+# Docker runtime
+docker/nginx/ssl/
+*.pem
+*.key
+
+# Backups
+*.tar.gz
+*-backup*.sql
+
+# OS
+.DS_Store
+Thumbs.db
