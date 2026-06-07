@@ -3,8 +3,7 @@
 .env.local
 .env.*.local
 
-# Docker runtime
-docker/nginx/ssl/
+# TLS keys (nếu dùng reverse proxy riêng)
 *.pem
 *.key
 
