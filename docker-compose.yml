@@ -1,5 +1,6 @@
-# Phapsuit Stack – n8n + Cloud AI APIs
+# Phapsuit Stack – n8n + FFmpeg + Cloud AI APIs
 # Chạy: docker compose up -d
+# VPS Ubuntu lần đầu: sudo bash scripts/setup-ubuntu-vps.sh
 
 name: phapsuit
 
@@ -23,7 +24,10 @@ services:
       retries: 5
 
   n8n:
-    image: n8nio/n8n:latest
+    build:
+      context: ./docker/n8n
+      dockerfile: Dockerfile
+    image: phapsuit-n8n:latest
     container_name: phapsuit-n8n
     restart: unless-stopped
     depends_on:
@@ -66,6 +70,7 @@ services:
       N8N_PERSONALIZATION_ENABLED: "false"
     volumes:
       - n8n_data:/home/node/.n8n
+      - n8n_media:/tmp/phapsuit-media
     networks:
       - phapsuit-net
     healthcheck:
@@ -82,3 +87,4 @@ networks:
 volumes:
   postgres_data:
   n8n_data:
+  n8n_media:
