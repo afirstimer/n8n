@@ -1,16 +1,15 @@
+# n8n >= 2.1.0 không còn apk trong image gốc – copy tạm từ Alpine để cài ffmpeg
+# https://github.com/n8n-io/n8n/issues/23246
+FROM alpine:3.23 AS alpine
+
 FROM n8nio/n8n:latest
+
+COPY --from=alpine /sbin/apk /sbin/apk
+COPY --from=alpine /usr/lib/libapk.so* /usr/lib/
 
 USER root
 
-# Hỗ trợ cả image Alpine (apk) và Debian (apt) của n8n
-RUN if command -v apk > /dev/null; then \
-      apk add --no-cache ffmpeg; \
-    elif command -v apt-get > /dev/null; then \
-      apt-get update && \
-      apt-get install -y --no-install-recommends ffmpeg && \
-      rm -rf /var/lib/apt/lists/*; \
-    else \
-      echo "Unsupported base image: cannot install ffmpeg" && exit 1; \
-    fi
+RUN apk add --no-cache ffmpeg \
+ && rm -f /sbin/apk /usr/lib/libapk.so*
 
 USER node
