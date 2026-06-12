@@ -130,6 +130,32 @@ services:
     networks:
       - phapsuit-net
 
+  ollama:
+    image: ollama/ollama:latest
+    container_name: phapsuit-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - phapsuit-net
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: phapsuit-litellm
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    command:
+      - "--config=/app/config.yaml"
+    volumes:
+      - ./litellm/config.yaml:/app/config.yaml
+    depends_on:
+      - ollama
+    networks:
+      - phapsuit-net
+
 networks:
   phapsuit-net:
     driver: bridge
@@ -139,3 +165,4 @@ volumes:
   n8n_data:
   n8n_media:
   mysql_data:
+  ollama_data:
