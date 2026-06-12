@@ -147,6 +147,8 @@ services:
     restart: unless-stopped
     ports:
       - "4000:4000"
+    environment:
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
     command:
       - "--config=/app/config.yaml"
     volumes:
