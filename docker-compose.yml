@@ -111,6 +111,23 @@ services:
     networks:
       - phapsuit-net
 
+  mysql:
+    image: mysql:8.4
+    container_name: phapsuit-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ:-Asia/Ho_Chi_Minh}
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - phapsuit-net
+
 networks:
   phapsuit-net:
     driver: bridge
@@ -119,3 +136,4 @@ volumes:
   postgres_data:
   n8n_data:
   n8n_media:
+  mysql_data:
