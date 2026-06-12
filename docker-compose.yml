@@ -100,18 +100,6 @@ services:
     networks:
       - phapsuit-net
 
-  spring-dev:
-    image: mcr.microsoft.com/devcontainers/java:21
-    container_name: spring-dev
-    tty: true
-    stdin_open: true
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./workspace:/workspace
-    networks:
-      - phapsuit-net
-
   spring-boot:
     build:
       context: ./workspace/demo
